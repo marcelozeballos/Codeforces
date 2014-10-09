@@ -1,36 +1,34 @@
 #include <cstdio>
-#include <algorithm>
-#include <iostream>
 #include <vector>
+#include <algorithm>
+#include <cstdlib>
+#include <iostream>
+#include <map>
+#include <string>
+#include <utility>
+#include <cstdlib>
 using namespace std;
 
 int main()
 {
-    int piles, queries;
-    long long label;
+    int piles; fscanf(stdin, "%d", &piles);
+    int sum = 0;
+    vector <int> vec;
 
-    fscanf(stdin,"%d",&piles);
-    long long parr[piles];
-
-    long long start = 0,aux;
-    for(int i = 0; i < piles; i++){
-        fscanf(stdin,"%ll",&aux);
-        start+=aux;
-        parr[i]=start;
+    for(int i =0; i < piles; i++){
+        int aux;
+        fscanf(stdin, "%d", &aux);
+        sum += aux;
+        vec.push_back(sum);
     }
 
-    fscanf(stdin,"%d",&queries);
+    int queries; fscanf(stdin, "%d", &queries);
 
-    while(queries--)
-    {
-        fscanf(stdin,"%ll",&label);
-
-        for(int i = 0; i < piles; i++){
-            if(label <= parr[i]){
-                fprintf(stdout,"%d\n",i+1);
-                break;
-            }
-        }
+    for(int i = 0; i < queries; i++){
+        int worm;
+        fscanf(stdin, "%d", &worm);
+        int pos = distance(vec.begin(),lower_bound(vec.begin(),vec.end(),worm))+1;
+        fprintf(stdout, "%d\n", pos);
     }
     return 0;
 }
